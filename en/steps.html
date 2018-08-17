@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+ 
+	
+<!-- header::Start -->
+	<head>
+		<!-- Use Internet Explorer 9 Standards mode for Eclipse Browser Control - https://www.eclipse.org/swt/faq.php#browsernativeie and https://msdn.microsoft.com/en-us/library/jj676915%28v=vs.85%29.aspx -->
+  		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		
+		<!-- Next 2 http=equiv headers required to disable caching the Eclipse Browser Widget -->
+		<meta http-equiv="Pragma" content="no-cache">
+  		<meta http-equiv="Expires" content="-1">
+
+		<meta charset="UTF-8"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<meta name="copyright" content="Copyright IBM Corporation 2014" />
+		<meta name="abstract" content="IBM Integration Bus V10 Tutorial">
+		<meta name="author" content="IBM">
+		<meta name="description" content="IBM Integration Bus V10 Tutorial">
+		<meta name="keywords" content="keywords" > 
+		<meta name="robots" content="index,follow">
+		<meta name="source" content="IBM Integration Bus V10 Tutorial" /> 
+		
+		<title>IBM Integration Bus V10 Tutorial</title>
+
+    	<link rel="stylesheet" href="http://ot4i.github.io/iib-tutorials/css/main.css" />
+		<link rel="stylesheet" href="http://ot4i.github.io/iib-tutorials/css/app.css" />
+    	
+		<script src="http://ot4i.github.io/iib-tutorials/js/json2.js"></script>
+		<script src="http://ot4i.github.io/iib-tutorials/js/js2java.js"></script>
+		<script src="http://ot4i.github.io/iib-tutorials/js/js2java_steps.js"></script>
+		<script src="http://ot4i.github.io/iib-tutorials/js/vendor/modernizr.js"></script>
+	</head>
+<!-- header::End -->
+<!-- body::Start -->
+		<body>
+  	<!-- body content here -->
+	<div class="row">
+	  <div class="small-12 medium-12 large-12 columns">
+	    <p> </p>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="small-9 medium-9 large-9 columns">
+	    <h4 class="title">Exploring the WebUI <action><button class="small radius button" tabindex="0" id="stepsViewDetails" onclick="viewDetails()"> View Details</button> </action></h4>
+	  </div>
+	  <div class="small-3 medium-3 large-3 columns">
+		<a href="javascript:;" onclick="openHelpSystem('/com.ibm.etools.msgbroker.helphome.doc/help_home_msgbroker.htm')" class="small right helplink">IBM Knowledge Center</a> 
+	  </div>
+	</div> 
+	<hr>
+	<div class="row">
+		<div class="small-10 medium-10 large-10 columns">
+		<h5> Learn how to access and use the WebUI for all 3 of ACE&#39;s integration services.. </h5>
+		</div>
+		<div class="small-2 medium-2 large-2 columns">
+			<button class="small radius button right" tabindex="0" id="backToGallery" onclick="backToGallery()"> Back To Gallery
+			</button>
+		</div>
+	</div>
+	<div class="row">          
+		  <div class="small-12 medium-12 large-12 columns">
+			<ul class="tabs vertical"> 
+				<li class="tab-title tab-title-small active">
+				  <a href="javascript:;" onclick="show('panel21')">Create</a> 
+				</li>
+				<li class="tab-title tab-title-small">
+				  <a href="javascript:;" onclick="show('panel31')">Prepare</a> 
+				</li>
+				<li class="tab-title tab-title-small">
+				  <a href="javascript:;" onclick="show('panel41')">Run</a> 
+				</li>
+			</ul>
+			<!-- editing -->
+			<div class="tabs-content panel-thin-blue vertical"> 
+		    	<div class="content active" id="panel21">
+		    		
+		    		<div class="small-10 medium-10 large-10 columns divider">
+					
+				      	<div class="row content-details">
+					      	<h4>Import projects</h4>
+					        
+						    
+								<p> When you click Import, 2 entities will be created in your workspace: the <span class="application">SimpleApp</span> application, conatining three message flows, and the <span class="application">SimpleBar</span> BAR file. </p>
+								
+							
+								<p> The contents of this tutorial will be explained in more detail when you move on to the Prepare tab, along with the setup steps you need to complete before deploying to a server. </p>
+								
+							
+						</div>
+						
+					</div>
+					
+					<div class="small-2 medium-2 large-2 columns">
+					
+					
+					<h4 class="tkaction"><a href="javascript:;" onclick="importArtifacts(); openResource('EventRoutingFlow')"> Import <img class="icon-image" src="http://ot4i.github.io/iib-tutorials/images/icons/ibmdesign/back-right-previous_128-orange.png"></a></h4>
+										
+				    </div>
+					
+		    	</div>
+		    	<div class="content" id="panel31">
+					
+		    		<div class="small-10 medium-10 large-10 columns divider">
+					
+						<div class="row content-details">
+						  	<h4>Prepare an Integration Server</h4>
+						    
+						    
+								<p>  </p>
+								
+								
+									
+									<ol>
+									
+									
+										<li> Assuming you are using a Windows platform, open an App Connect Enterprise Command Console and start a standalone integration server using the following command: <br><code>integrationserver --name server0 --work-dir C:\server0 -admin-rest-api 7600 --http-port-number 7800 --console-log</code>
+										
+										</li>
+									
+										<li> Now we will create an Integration Node and launch some servers to it. Open a new ACE Command Console and type:<br><code>mqsicreatebroker myNode -P 4414</code><br><code>mqsistart myNode</code><br><code>mqsicreateexecutiongroup myNode -e nodeServer0</code><br>Repeat the final command and replace the 'nodeServer0' to create a 'nodeServer1', 'nodeServer2' and 'nodeServer3'.
+										
+										</li>
+									
+										<li> Then, open a third ACE Command Console and set the environment variable <code>ACE_DASHBOARD=true</code> by typing:<br><code>setx ACE_DASHBOARD true</code>
+										
+										</li>
+									
+										<li> Finally, start a new integration server in this ACE Console by typing the command:<br><code>integrationserver --name serverDash --work-dir C:\serverDash -admin-rest-api 7601 --http-port-number 7801 --console-log</code>
+										
+										</li>
+									
+										<li> Open a web browser connect to the following 3 locations in seperate tabs with:<br><code>localhost:7600</code><br><code>localhost:4414</code><br><code>localhost:7601</code>
+										
+										</li>
+									
+									
+									</ol>
+									
+								
+							
+						</div>
+							
+					</div>
+					
+					<div class="small-2 medium-2 large-2 columns">
+					
+					
+					<h4 class="tkaction"><a href="javascript:;" onclick="deployArtifacts()"> Deploy <img class="icon-image" src="http://ot4i.github.io/iib-tutorials/images/icons/ibmdesign/back-right-previous_128-orange.png"></a></h4>						
+				    					
+				    </div>
+					
+		    	</div>
+		    	<div class="content" id="panel41">
+		    		
+		    		<div class="small-10 medium-10 large-10 columns divider">
+					
+				    	<div class="row content-details">
+					      	<h4>Follow these steps to complete the tutorial</h4>
+					        
+						    
+								<p> Follow the following steps to complete the tutorial. </p>
+								
+								
+									
+									<ol>
+									
+									
+										<li> In your browser open the tab connected to <code>localhost:7600</code>, this is the WebUI for your standalone integration server. You should see 5 tabs along the top of the site, a Deploy button on the right and an empty body of Contents.
+										
+										</li>
+									
+										<li> Now we'll deploy our SimpleBar to this server using the WebUI. Click the 'Deploy' button on the right of the page. Click on 'Select a BAR file' and navigate to your toolkit's workspace. Open the SimpleBar.bar under the 'BARfiles' directory and deploy it.
+										
+										</li>
+									
+										<li> SimpleApp should appear under the 'Contents' tab on the WebUI. Click on it to view the contents of the app, in this case just 3 simple flows should appear. Clicking on each of the flows will display the properties and statistics of that flow.
+										
+										</li>
+									
+										<li> Explore the other 4 tabs as you wish to gather information about this specific server. We will explore Policies and how to utilise both Statistics tabs in later tutorials.
+										
+										</li>
+									
+										<li> Next, open the <code>localhost:4414</code> tab and you should see all the servers you created under your Integration Node earlier. Enter each of them and follow the above steps to deploy SimpleBar.bar to as many as you like. Here you can manage many integration servers from one UI.
+										
+										</li>
+									
+										<li> Return back to the server view in your Node WebUI. On the right there should be a button labelled 'Create a Server'. Click it and name your new server something unique. Deploy the Bar file to it if you like.
+										
+										</li>
+									
+										<li> Open the <code>localhost:7601</code> tab. In the top right of this web UI there should be 3 brand-new tabs and an 'Edit Connections' button.<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Server', name it 'server0' and set the address to 'http://localhost:7600'<br> - Click 'Save' in the bottom right of the window, you should now be able to access your standalone server directly from your Dashboard's WebUI.
+										
+										</li>
+									
+										<li> Repeat the above steps to connect to your Integration Node at the address 'http://localhost:4414'.
+										
+										</li>
+									
+										<li> Now you will be to manage all your Integration Servers and Nodes from one handy Web User Interface. Changing the focus to 'Integrations' in the top right will shwo all the deployed applications across all servers you own. 'Nodes' and 'Servers' display all nodes and servers respectively.
+										
+										</li>
+									
+									
+									</ol>
+									
+								
+							
+						</div>
+							
+					</div>
+					
+					<div class="small-2 medium-2 large-2 columns">
+					
+					
+					
+					
+					
+					<h4 class="tkaction"><a href="javascript:;" onclick="cleanUp()" title="Clean up and remove any changes in your workspace made by the tutorial."> Clean Up <img class="icon-image" src="http://ot4i.github.io/iib-tutorials/images/icons/ibmdesign/close-cancel-error_128-red.png"></a></h4>
+				    
+					
+				    </div>
+					
+				</div>	
+			</div> <!-- tab-content -->
+		</div> <!-- columns -->
+	  </div> <!-- row --></body>
+		<script src="http://ot4i.github.io/iib-tutorials/js/vendor/jquery.js"></script>
+		<script src="http://ot4i.github.io/iib-tutorials/js/vendor/foundation.min.js"></script>
+		<script src="http://ot4i.github.io/iib-tutorials/js/main.js"></script>
+	</body>
+<!-- body::End -->
+
+</html>
