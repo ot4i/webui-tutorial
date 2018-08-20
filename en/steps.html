@@ -24,13 +24,13 @@
 		
 		<title>IBM Integration Bus V10 Tutorial</title>
 
-    	<link rel="stylesheet" href="http://ot4i.github.io/iib-tutorials/css/main.css" />
-		<link rel="stylesheet" href="http://ot4i.github.io/iib-tutorials/css/app.css" />
+    	<link rel="stylesheet" href="https://ot4i.github.io/iib-tutorials/css/main.css" />
+		<link rel="stylesheet" href="https://ot4i.github.io/iib-tutorials/css/app.css" />
     	
-		<script src="http://ot4i.github.io/iib-tutorials/js/json2.js"></script>
-		<script src="http://ot4i.github.io/iib-tutorials/js/js2java.js"></script>
-		<script src="http://ot4i.github.io/iib-tutorials/js/js2java_steps.js"></script>
-		<script src="http://ot4i.github.io/iib-tutorials/js/vendor/modernizr.js"></script>
+		<script src="https://ot4i.github.io/iib-tutorials/js/json2.js"></script>
+		<script src="https://ot4i.github.io/iib-tutorials/js/js2java.js"></script>
+		<script src="https://ot4i.github.io/iib-tutorials/js/js2java_steps.js"></script>
+		<script src="https://ot4i.github.io/iib-tutorials/js/vendor/modernizr.js"></script>
 	</head>
 <!-- header::End -->
 <!-- body::Start -->
@@ -43,7 +43,7 @@
 	</div>
 	<div class="row">
 	  <div class="small-9 medium-9 large-9 columns">
-	    <h4 class="title">Exploring the WebUI <action><button class="small radius button" tabindex="0" id="stepsViewDetails" onclick="viewDetails()"> View Details</button> </action></h4>
+	    <h4 class="title">Getting started with ACEv11 - Exploring the Web UI <action><button class="small radius button" tabindex="0" id="stepsViewDetails" onclick="viewDetails()"> View Details</button> </action></h4>
 	  </div>
 	  <div class="small-3 medium-3 large-3 columns">
 		<a href="javascript:;" onclick="openHelpSystem('/com.ibm.etools.msgbroker.helphome.doc/help_home_msgbroker.htm')" class="small right helplink">IBM Knowledge Center</a> 
@@ -52,7 +52,7 @@
 	<hr>
 	<div class="row">
 		<div class="small-10 medium-10 large-10 columns">
-		<h5> Learn how to access and use the WebUI for all 3 of ACE&#39;s integration services.. </h5>
+		<h5> Learn some basics about administering ACE using a Web UI </h5>
 		</div>
 		<div class="small-2 medium-2 large-2 columns">
 			<button class="small radius button right" tabindex="0" id="backToGallery" onclick="backToGallery()"> Back To Gallery
@@ -82,10 +82,31 @@
 					      	<h4>Import projects</h4>
 					        
 						    
-								<p> When you click Import, 2 entities will be created in your workspace: the <span class="application">SimpleApp</span> application, conatining three message flows, and the <span class="application">SimpleBar</span> BAR file. </p>
+								<p> When you click Import, the following projects will be created in your workspace: </p>
+								
+								
+									
+									<ul>
+									
+									
+										<li> The Application <span class="application">Transformation_Map</span> provides a simple HTTP driven message flow which transforms an XML message.
+										
+										</li>
+									
+										<li> The Integration Service <span class="application">TemperatureConverter</span> provides an HTTP web service (based on a WSDL definition) which offers two operations for converting temperatures in celsius to fahrenheit and vice versa.
+										
+										</li>
+									
+										<li> The REST API <span class="application">CustomerDatabaseV1</span> provides a REST interface for managing a set of customer records.
+										
+										</li>
+									
+									
+									</ul>
+									
 								
 							
-								<p> The contents of this tutorial will be explained in more detail when you move on to the Prepare tab, along with the setup steps you need to complete before deploying to a server. </p>
+								<p> These three types of project provide examples of the main kinds of integration which users deploy to the ACE runtime. Later in the tutorial we will deploy them and view them in the Web UI. The import process also provides a Broker Archive file named <span class="application">Everything.bar</span> inside the project named <span class="application">BARfiles</span> </p>
 								
 							
 						</div>
@@ -95,18 +116,115 @@
 					<div class="small-2 medium-2 large-2 columns">
 					
 					
-					<h4 class="tkaction"><a href="javascript:;" onclick="importArtifacts(); openResource('EventRoutingFlow')"> Import <img class="icon-image" src="http://ot4i.github.io/iib-tutorials/images/icons/ibmdesign/back-right-previous_128-orange.png"></a></h4>
+					<h4 class="tkaction"><a href="javascript:;" onclick="importArtifacts(); openResource('EventRoutingFlow')"> Import <img class="icon-image" src="https://ot4i.github.io/iib-tutorials/images/icons/ibmdesign/back-right-previous_128-orange.png"></a></h4>
 										
 				    </div>
 					
 		    	</div>
 		    	<div class="content" id="panel31">
 					
-		    		<div class="small-10 medium-10 large-10 columns divider">
+					<div class="small-12 medium-12 large-12 columns">
 					
 						<div class="row content-details">
-						  	<h4>Prepare an Integration Server</h4>
+						  	<h4>Prepare an example ACE environment</h4>
 						    
+						    
+								<p> <b>Prepare an ACE Web UI for administering an Integration Server</b> </p>
+								
+								
+									
+									<ol>
+									
+									
+										<li> Assuming you are using a Windows platform, open an App Connect Enterprise Command Console and create a working directory by running the mqsicreateworkdir command:<br><code>mqsicreateworkdir C:\MyServer</code>
+										
+										</li>
+									
+										<li> Edit the <code>server.conf.yaml</code> file which the above command will have created in the directory <code>C:\MyServer</code>. To turn on Basic Authentication for users logging in to the ACE Web UI, find the line <code>&nbsp;&nbsp;#basicAuth: true</code> and uncomment the line by removing the leading # symbol
+										
+										</li>
+									
+										<li> Use the mqsiwebuseradmin command to specify a web userid and password which will be used to login to the Web UI:<br><code>mqsiwebuseradmin -w C:\MyServer -c -u webuser -a password123</code>
+										
+										</li>
+									
+										<li> Start an integration server using the following command: <br><code>IntegrationServer --name MyServer --work-dir C:\MyServer -admin-rest-api 7600 --http-port-number 7900 --console-log</code>
+										
+										</li>
+									
+									
+									</ol>
+									
+								
+							
+								<p> <b>Prepare an ACE Web UI for administering an Integration Node</b> </p>
+								
+								
+									
+									<ol>
+									
+									
+										<li> Now create an Integration Node and create three integration servers which will be owned by it. Open a new ACE Command Console and type:<br><code>mqsicreatebroker MyNode -P 4414</code><br><code>mqsistart MyNode</code><br><code>mqsicreateexecutiongroup MyNode -e MyNodeOwnedServer1</code><br>Repeat the final command and replace the 'MyNodeOwnedServer1' to create a 'MyNodeOwnedServer2', and 'MyNodeOwnedServer3'.
+										
+										</li>
+									
+									
+									</ol>
+									
+								
+							
+								<p> <b>Prepare an ACE Web UI for administering multiple servers and nodes</b> </p>
+								
+								
+									
+									<ol>
+									
+									
+										<li> Open a third ACE Command Console, which we will use to support another Integration Server whose only purpose is to support a variant of the ACE Web UI which allows you to administer multiple Integration Nodes and Servers in your network. This server is not intended to be used to host deployed integrations, so do not attempt to connect to it from a Toolkit (or interact with it via the standard REST administration API). This special server behavior is configured by setting an environment variable named ACE_DASHBOARD. Given that the role of the web UI which will be served by this Integration server is to provide information about multiple servers and nodes running in your network, you will most likely want to configure this form of the web UI to be served using HTTPS. In the example below, we will demonstrate using a keystore which has been populated with a self-signed certificate. For production usage, you are advised not to use self-signed certificates and instead import a personal certificate from a certificate authority.
+										
+										</li>
+									
+										<li> In Command Console, create a working directory by running the mqsicreateworkdir command:<br><code>mqsicreateworkdir C:\MyDashboardServer</code>
+										
+										</li>
+									
+										<li> Edit the server.conf.yaml file which the above command will have created in the directory <code>C:\MyDashboardServer</code>, with the following details in order to secure the ACE Web UI:<br><code>RestAdminListener:<br>&nbsp;&nbsp;port: 7643<br>&nbsp;&nbsp;sslCertificate: C:\MyDashboardServerKeyStore\keystore.pfx<br>&nbsp;&nbsp;sslPassword: adminRestApi::sslpwd</code>
+										
+										</li>
+									
+										<li> Create the directory <code>C:\MyDashboardServerKeyStore</code> and then use keytool to create a keystore file containing your self-signed certificate:<br><code>keytool -genkey -alias ACE_alias -keystore C:\MyDashboardServerKeyStore\keystore.pfx -storepass change1t -storetype pkcs12 -keyalg RSA</code><br>When prompted, provide suitable values for your self-signed certificate's values. For example, CN=aceserver.hursley.ibm.com, OU=IBM ACE, O=ibm, L=Hursley, ST=Hampshire, C=GB
+										
+										</li>
+									
+										<li> Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><code>mqsisetdbparms C:\MyDashboardServerKeyStore -n adminRestApi::sslpwd -u ignore -p change1t</code>
+										
+										</li>
+									
+										<li> Set the environment variable <code>ACE_DASHBOARD=true</code> by typing:<br><code>set ACE_DASHBOARD=true</code>
+										
+										</li>
+									
+										<li> Finally, start a new integration server by typing the command:<br><code>IntegrationServer --name MyDashboardServer --work-dir C:\MyDashboardServer --console-log</code>
+										
+										</li>
+									
+									
+									</ol>
+									
+								
+							
+						</div>
+							
+					</div>
+					
+		    	</div>
+		    	<div class="content" id="panel41">
+		    		
+					<div class="small-12 medium-12 large-12 columns">
+					
+				    	<div class="row content-details">
+					      	<h4>Explore the ACE Web UI</h4>
+					        
 						    
 								<p>  </p>
 								
@@ -115,91 +233,35 @@
 									<ol>
 									
 									
-										<li> Assuming you are using a Windows platform, open an App Connect Enterprise Command Console and start a standalone integration server using the following command: <br><code>integrationserver --name server0 --work-dir C:\server0 -admin-rest-api 7600 --http-port-number 7800 --console-log</code>
+										<li> Open a tab in a web browser and connect to the URL <code>http://localhost:7600</code>. This will present the WebUI for your standalone integration server, which we configured to use Basic Authentication.  When challenged type the username <code>webuser</code> and password <code>password123</code>.  Log-in should succeed and you should see 5 tabs along the top of the page, a Deploy button on the right and an empty body of Contents.
 										
 										</li>
 									
-										<li> Now we will create an Integration Node and launch some servers to it. Open a new ACE Command Console and type:<br><code>mqsicreatebroker myNode -P 4414</code><br><code>mqsistart myNode</code><br><code>mqsicreateexecutiongroup myNode -e nodeServer0</code><br>Repeat the final command and replace the 'nodeServer0' to create a 'nodeServer1', 'nodeServer2' and 'nodeServer3'.
+										<li> Now we'll deploy the example BAR file using the Web UI. Click the 'Deploy' button on the right of the page. Click on 'Select a BAR file' and navigate to your toolkit's workspace. Select <code>Everything.bar</code> inside the <code>BARfiles</code> directory, and deploy it.
 										
 										</li>
 									
-										<li> Then, open a third ACE Command Console and set the environment variable <code>ACE_DASHBOARD=true</code> by typing:<br><code>setx ACE_DASHBOARD true</code>
+										<li> Under the Contents tab you should now see the Application called Transformation_Map, the Integration Service called TemperatureConverter and the REST API called CustomerDatabaseV1. 
 										
 										</li>
 									
-										<li> Finally, start a new integration server in this ACE Console by typing the command:<br><code>integrationserver --name serverDash --work-dir C:\serverDash -admin-rest-api 7601 --http-port-number 7801 --console-log</code>
+										<li> Explore the other areas of the Web UI yourself.  Separate tutorials on the topic of Policies and Statistics are also provided in the Tutorials Gallery.
 										
 										</li>
 									
-										<li> Open a web browser connect to the following 3 locations in seperate tabs with:<br><code>localhost:7600</code><br><code>localhost:4414</code><br><code>localhost:7601</code>
+										<li> Open another tab in your web browser and connect to the URL <code>http://localhost:4414</code>. This will show you information about the Integration Node named MyNode, and its three servers MyNodeOwnedServer1, MyNodeOwnedServer2 and MyNodeOwnedServer3 which you created earlier. You should see a tile representing each server, which you can click into to display their content, which will be empty to start with until you deploy something, which you might like to try!
 										
 										</li>
 									
-									
-									</ol>
-									
-								
-							
-						</div>
-							
-					</div>
-					
-					<div class="small-2 medium-2 large-2 columns">
-					
-					
-					<h4 class="tkaction"><a href="javascript:;" onclick="deployArtifacts()"> Deploy <img class="icon-image" src="http://ot4i.github.io/iib-tutorials/images/icons/ibmdesign/back-right-previous_128-orange.png"></a></h4>						
-				    					
-				    </div>
-					
-		    	</div>
-		    	<div class="content" id="panel41">
-		    		
-		    		<div class="small-10 medium-10 large-10 columns divider">
-					
-				    	<div class="row content-details">
-					      	<h4>Follow these steps to complete the tutorial</h4>
-					        
-						    
-								<p> Follow the following steps to complete the tutorial. </p>
-								
-								
-									
-									<ol>
-									
-									
-										<li> In your browser open the tab connected to <code>localhost:7600</code>, this is the WebUI for your standalone integration server. You should see 5 tabs along the top of the site, a Deploy button on the right and an empty body of Contents.
+										<li> In the server view of the Integration Node Web UI, on the right you will find a button labelled 'Create a Server'. You can use this option to create another integration server which is owned by the node.
 										
 										</li>
 									
-										<li> Now we'll deploy our SimpleBar to this server using the WebUI. Click the 'Deploy' button on the right of the page. Click on 'Select a BAR file' and navigate to your toolkit's workspace. Open the SimpleBar.bar under the 'BARfiles' directory and deploy it.
+										<li> Open another new tab in your web browser and connect to the URL <code>https://localhost:7643</code>. Your browser will ask you if you are happy to connect based upon the information which is in the self-signed certificate which you created earlier. Once connected, in the top right corner of this web UI you should see a button which allows you to toggle your view between Integrations, Servers and Nodes. To the left of this you will see the option to Edit Connections:<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Server', use the name 'MyServer' (or any name you like to uniquely identify the standalone server), set the address to 'http://localhost:7600', the Username to 'webuser' and the Password to 'password123'<br> - Click 'Save' in the bottom right of the window and the Servers view should show your standalone integration server.
 										
 										</li>
 									
-										<li> SimpleApp should appear under the 'Contents' tab on the WebUI. Click on it to view the contents of the app, in this case just 3 simple flows should appear. Clicking on each of the flows will display the properties and statistics of that flow.
-										
-										</li>
-									
-										<li> Explore the other 4 tabs as you wish to gather information about this specific server. We will explore Policies and how to utilise both Statistics tabs in later tutorials.
-										
-										</li>
-									
-										<li> Next, open the <code>localhost:4414</code> tab and you should see all the servers you created under your Integration Node earlier. Enter each of them and follow the above steps to deploy SimpleBar.bar to as many as you like. Here you can manage many integration servers from one UI.
-										
-										</li>
-									
-										<li> Return back to the server view in your Node WebUI. On the right there should be a button labelled 'Create a Server'. Click it and name your new server something unique. Deploy the Bar file to it if you like.
-										
-										</li>
-									
-										<li> Open the <code>localhost:7601</code> tab. In the top right of this web UI there should be 3 brand-new tabs and an 'Edit Connections' button.<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Server', name it 'server0' and set the address to 'http://localhost:7600'<br> - Click 'Save' in the bottom right of the window, you should now be able to access your standalone server directly from your Dashboard's WebUI.
-										
-										</li>
-									
-										<li> Repeat the above steps to connect to your Integration Node at the address 'http://localhost:4414'.
-										
-										</li>
-									
-										<li> Now you will be to manage all your Integration Servers and Nodes from one handy Web User Interface. Changing the focus to 'Integrations' in the top right will shwo all the deployed applications across all servers you own. 'Nodes' and 'Servers' display all nodes and servers respectively.
+										<li> Repeat the process to Edit Connections:<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Node', use the name 'MyNode' (or any name you like to uniquely identify the node which you created earlier), set the address to 'http://localhost:4414' (for this connection you don't need a Username and Password)<br> - Click 'Save' in the bottom right of the window and in the Servers view, you should now be able to see tiles representing both the standalone server, and the servers which are owned by the Integration Node all together in the same Web UI.
 										
 										</li>
 									
@@ -211,25 +273,14 @@
 						</div>
 							
 					</div>
-					
-					<div class="small-2 medium-2 large-2 columns">
-					
-					
-					
-					
-					
-					<h4 class="tkaction"><a href="javascript:;" onclick="cleanUp()" title="Clean up and remove any changes in your workspace made by the tutorial."> Clean Up <img class="icon-image" src="http://ot4i.github.io/iib-tutorials/images/icons/ibmdesign/close-cancel-error_128-red.png"></a></h4>
-				    
-					
-				    </div>
 					
 				</div>	
 			</div> <!-- tab-content -->
 		</div> <!-- columns -->
 	  </div> <!-- row --></body>
-		<script src="http://ot4i.github.io/iib-tutorials/js/vendor/jquery.js"></script>
-		<script src="http://ot4i.github.io/iib-tutorials/js/vendor/foundation.min.js"></script>
-		<script src="http://ot4i.github.io/iib-tutorials/js/main.js"></script>
+		<script src="https://ot4i.github.io/iib-tutorials/js/vendor/jquery.js"></script>
+		<script src="https://ot4i.github.io/iib-tutorials/js/vendor/foundation.min.js"></script>
+		<script src="https://ot4i.github.io/iib-tutorials/js/main.js"></script>
 	</body>
 <!-- body::End -->
 
