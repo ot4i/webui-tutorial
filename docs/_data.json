@@ -32,8 +32,8 @@
   	{
         "_common":
     		{
-            "name": "Exploring the WebUI",
-            "shortDescription": "Learn how to access and use the WebUI for all 3 of ACE's integration services..",
+            "name": "Getting started with ACEv11 - Exploring the Web UI",
+            "shortDescription": "Learn some basics about administering ACE using a Web UI",
             "durationText": "This tutorial takes approximately",
             "durationTime": "15 minutes",
             "_resourceToOpenComment": "The ID of the first resource to open when the user imports the tutorial. Resource IDs are defined in the repo_metadata.json Tutorials listing on ot4i.",
@@ -51,16 +51,13 @@
             "topicList":
       			[
                 {
-                    "title": "Starting all 3 different types of integration services: Integration Server, Integration Node and ACE Dashboard."
+                    "title": "Connecting to the ACE Web UI for an Integration Node"
                 },
                 {
-                    "title": "Accessing the WebUI for all 3 above services"
+                    "title": "Connecting to the ACE Web UI for an Integration Server (which is defined independently from an Integration Node)"
                 },
                 {
-                    "title": "Becoming familiar with the common WebUI between these services"
-                },
-                {
-                    "title": "Becoming comfortable with the key differences between the capabilities of the different UIs"
+                    "title": "Connecting to the ACE Web UI for administering multiple Integration Nodes and Integration Servers"
                 }
             ],
             "outcomesName": "Learning outcomes",
@@ -68,7 +65,7 @@
             "outcomeList":
       			[
                 {
-                    "title": "Understand how to access and use the WebUI for an Iintegration Server, Integration Node and Server Dashboard."
+                    "title": "Become familiar with the key similarities and differences in the ACE Web UI views, depending on whether you are connected to a single Integration Node, a single Integration Server or multiple Nodes and Servers." 
                 }
             ],
             "summary":
@@ -78,16 +75,13 @@
                 "sections":
         				[
                     {
-                        "section": "This tutorial shows how a user would create and connect to 3 different forms of integration service: Integration Server, Integration Node and an Integration Dashboard. This example uses a few simple flows to populate the WebUI enough to demonstrate the basics of it."
-                    },
+                        "section": "This tutorial helps you explore the App Connect Enterprise Web UI which is used for administering installations of the software product. If you are not already familiar with the concept of an Integration Node and an Integration Server, you should start by looking through another tutorial named <span class='uicontrol'>Getting Started with ACEv11 - Creating an Integration Server</span> which will help explain these concepts."
+					},
+					{
+						"section":"The App Connect Enterprise Web UI contains slightly different options depending on whether you connect to an Integration Node, an Integration Server (which is defined independently from an Integration Node) or to an instance of the Web UI which is configured for the administration of multiple Nodes and Servers. This example uses a few simple flows to populate the WebUI enough to demonstrate the basics of it."
+					},						                 
                     {
-                        "section": "The Integration Dashboard will be introduced as an easy and effective way to manage multiple servers and nodes at once from a single place. The strengths and limitations of this Dashboard will also be explained."
-                    },
-                    {
-                        "section": "The user will deploy multiple flows to the launched servers and then view them in the WebUI and see them running on within the Server and Node respectively."
-                    },
-                    {
-                        "section": "Finally, the user will be shown how to manage the launched Server and Node directly from the Dashboard WebUI."
+                        "section": "In this tutorial you will deploy several message flows to Integration Servers (both those associated with an Integration Node and those which are independent) and you will then use the Web UI to view what has been deployed."
                     }
                 ]
             }
@@ -103,11 +97,26 @@
                     "_createComment": "A description of what will happen when the user clicks Import.",
                     "sections":
           					[
-                        {
-                            "section": "When you click Import, 2 entities will be created in your workspace: the <span class='application'>SimpleApp</span> application, conatining three message flows, and the <span class='application'>SimpleBar</span> BAR file."
-                        },
-                  			{
-                  			    "section": "The contents of this tutorial will be explained in more detail when you move on to the Prepare tab, along with the setup steps you need to complete before deploying to a server."
+                        {                            
+						"section": "When you click Import, the following projects will be created in your workspace:",
+                            "steps":{
+                                "type": "unordered",
+                                "details": 
+                                [
+                                    {
+                                      "details": "The Application <span class='application'>Transformation_Map</span> provides a simple HTTP driven message flow which transforms an XML message."
+                                    },
+                                    {
+                                      "details": "The Integration Service <span class='application'>TemperatureConverter</span> provides an HTTP web service (based on a WSDL definition) which offers two operations for converting temperatures in celsius to fahrenheit and vice versa."
+                                    },
+                                    {
+                                      "details": "The REST API <span class='application'>CustomerDatabaseV1</span> provides a REST interface for managing a set of customer records."
+                                    }
+                                ]
+                            }
+						},
+						{
+                  			    "section": "These three types of project provide examples of the main kinds of integration which users deploy to the ACE runtime. Later in the tutorial we will deploy them and view them in the Web UI. The import process also provides a Broker Archive file named <span class='application'>Everything.bar</span> inside the project named <span class='application'>BARfiles</span>"
                   			}
                     ]
                 },
@@ -128,45 +137,77 @@
                 "overview":
         				{
                     "name": "Prepare",
-                    "heading": "Prepare an Integration Server",
+                    "heading": "Prepare an example ACE environment",
                     "_prepareComment": "Enable resource statistics tracking:",
                     "sections":
           					[
                       {
-                        "steps":
+						"section":"<b>Prepare an ACE Web UI for administering an Integration Server</b>",
+						  "steps":
+                        {
+                          "type": "ordered",
+                          "details":
+                          [
+							  
+							  {
+								"details": "Assuming you are using a Windows platform, open an App Connect Enterprise Command Console and create a working directory by running the mqsicreateworkdir command:<br><code>mqsicreateworkdir C:\\MyServer</code>"
+							},
+							  	{
+								"details": "Edit the <code>server.conf.yaml</code> file which the above command will have created in the directory <code>C:\\MyServer</code>. To turn on Basic Authentication for users logging in to the ACE Web UI, find the line <code>&nbsp;&nbsp;#basicAuth: true</code> and uncomment the line by removing the leading # symbol"
+							},		
+							{						
+								"details": "Use the mqsiwebuseradmin command to specify a web userid and password which will be used to login to the Web UI:<br><code>mqsiwebuseradmin -w C:\\MyServer -c -u webuser -a password123</code>"
+							}, 
+                            {
+                                "details": "Start an integration server using the following command: <br><code>IntegrationServer --name MyServer --work-dir C:\\MyServer -admin-rest-api 7600 --http-port-number 7900 --console-log</code>"
+                            }
+                          ]
+                        }
+					  },
+					  {
+					  "section":"<b>Prepare an ACE Web UI for administering an Integration Node</b>",
+						  "steps":
+                        {
+                          "type": "ordered",
+                          "details":
+                          [
+							 {
+                                "details": "Now create an Integration Node and create three integration servers which will be owned by it. Open a new ACE Command Console and type:<br><code>mqsicreatebroker MyNode -P 4414</code><br><code>mqsistart MyNode</code><br><code>mqsicreateexecutiongroup MyNode -e MyNodeOwnedServer1</code><br>Repeat the final command and replace the 'MyNodeOwnedServer1' to create a 'MyNodeOwnedServer2', and 'MyNodeOwnedServer3'."
+                            }
+                          ]
+                        }
+					  },
+					  {
+						"section":"<b>Prepare an ACE Web UI for administering multiple servers and nodes</b>",
+						  "steps":
                         {
                           "type": "ordered",
                           "details":
                           [
                             {
-                                "details": "Assuming you are using a Windows platform, open an App Connect Enterprise Command Console and start a standalone integration server using the following command: <br><code>integrationserver --name server0 --work-dir C:\\server0 -admin-rest-api 7600 --http-port-number 7800 --console-log</code>"
-                            },
+                                "details": "Open a third ACE Command Console, which we will use to support another Integration Server whose only purpose is to support a variant of the ACE Web UI which allows you to administer multiple Integration Nodes and Servers in your network. This server is not intended to be used to host deployed integrations, so do not attempt to connect to it from a Toolkit (or interact with it via the standard REST administration API). This special server behavior is configured by setting an environment variable named ACE_DASHBOARD. Given that the role of the web UI which will be served by this Integration server is to provide information about multiple servers and nodes running in your network, you will most likely want to configure this form of the web UI to be served using HTTPS. In the example below, we will demonstrate using a keystore which has been populated with a self-signed certificate. For production usage, you are advised not to use self-signed certificates and instead import a personal certificate from a certificate authority."
+							},
+							{
+								"details": "In Command Console, create a working directory by running the mqsicreateworkdir command:<br><code>mqsicreateworkdir C:\\MyDashboardServer</code>"
+							},
+							{
+								"details": "Edit the server.conf.yaml file which the above command will have created in the directory <code>C:\\MyDashboardServer</code>, with the following details in order to secure the ACE Web UI:<br><code>RestAdminListener:<br>&nbsp;&nbsp;port: 7643<br>&nbsp;&nbsp;sslCertificate: C:\\MyDashboardServerKeyStore\\keystore.pfx<br>&nbsp;&nbsp;sslPassword: adminRestApi::sslpwd</code>"
+							},							
+							{
+								"details": "Create the directory <code>C:\\MyDashboardServerKeyStore</code> and then use keytool to create a keystore file containing your self-signed certificate:<br><code>keytool -genkey -alias ACE_alias -keystore C:\\MyDashboardServerKeyStore\\keystore.pfx -storepass change1t -storetype pkcs12 -keyalg RSA</code><br>When prompted, provide suitable values for your self-signed certificate's values. For example, CN=aceserver.hursley.ibm.com, OU=IBM ACE, O=ibm, L=Hursley, ST=Hampshire, C=GB"
+							},
+							{
+								"details": "Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><code>mqsisetdbparms C:\\MyDashboardServerKeyStore -n adminRestApi::sslpwd -u ignore -p change1t</code>"
+							},
+							{
+								"details": "Set the environment variable <code>ACE_DASHBOARD=true</code> by typing:<br><code>set ACE_DASHBOARD=true</code>"
+							},
                             {
-                                "details": "Now we will create an Integration Node and launch some servers to it. Open a new ACE Command Console and type:<br><code>mqsicreatebroker myNode -P 4414</code><br><code>mqsistart myNode</code><br><code>mqsicreateexecutiongroup myNode -e nodeServer0</code><br>Repeat the final command and replace the 'nodeServer0' to create a 'nodeServer1', 'nodeServer2' and 'nodeServer3'."
-                            },
-                            {
-                                "details": "Then, open a third ACE Command Console and set the environment variable <code>ACE_DASHBOARD=true</code> by typing:<br><code>setx ACE_DASHBOARD true</code>"
-                            },
-                            {
-                                "details": "Finally, start a new integration server in this ACE Console by typing the command:<br><code>integrationserver --name serverDash --work-dir C:\\serverDash -admin-rest-api 7601 --http-port-number 7801 --console-log</code>"
-                            },
-                            {
-                                "details": "Open a web browser connect to the following 3 locations in seperate tabs with:<br><code>localhost:7600</code><br><code>localhost:4414</code><br><code>localhost:7601</code>"
-                            }
+                                "details": "Finally, start a new integration server by typing the command:<br><code>IntegrationServer --name MyDashboardServer --work-dir C:\\MyDashboardServer --console-log</code>"
+                            }                            							  
                           ]
                         }
-                      }
-                    ]
-                },
-                "actions":
-        				{
-                    "title": "Prepare Actions",
-                    "details":
-          					[
-                        {
-                            "name": "Deploy",
-                            "method": "deployArtifacts()"
-                        }
+					  }                          
                     ]
                 }
             },
@@ -175,61 +216,46 @@
                 "overview":
         				{
                     "name": "Run",
-                    "heading": "Follow these steps to complete the tutorial",
+                    "heading": "Explore the ACE Web UI",
                     "_runComment": "The full steps for the user to run through the tutorial. Use 'sections' to render paragraphs, 'steps' with a type of 'ordered' or 'unordered' to render HTML lists, and 'substeps' to render nested lists.",
                     "sections":
           					[
                         {
-                            "section": "Follow the following steps to complete the tutorial.",
+                            "section": "",
                             "steps":
               							{
                                 "type": "ordered",
                                 "details":
                 								[
                                     {
-                                        "details": "In your browser open the tab connected to <code>localhost:7600</code>, this is the WebUI for your standalone integration server. You should see 5 tabs along the top of the site, a Deploy button on the right and an empty body of Contents."
+                                        "details": "Open a tab in a web browser and connect to the URL <code>http://localhost:7600</code>. This will present the WebUI for your standalone integration server, which we configured to use Basic Authentication.  When challenged type the username <code>webuser</code> and password <code>password123</code>.  Log-in should succeed and you should see 5 tabs along the top of the page, a Deploy button on the right and an empty body of Contents."
                                     },
                                     {
-                                        "details": "Now we'll deploy our SimpleBar to this server using the WebUI. Click the 'Deploy' button on the right of the page. Click on 'Select a BAR file' and navigate to your toolkit's workspace. Open the SimpleBar.bar under the 'BARfiles' directory and deploy it."
+                                        "details": "Now we'll deploy the example BAR file using the Web UI. Click the 'Deploy' button on the right of the page. Click on 'Select a BAR file' and navigate to your toolkit's workspace. Select <code>Everything.bar</code> inside the <code>BARfiles</code> directory, and deploy it."
                                     },
                                     {
-                                        "details": "SimpleApp should appear under the 'Contents' tab on the WebUI. Click on it to view the contents of the app, in this case just 3 simple flows should appear. Clicking on each of the flows will display the properties and statistics of that flow."
+                                        "details": "Under the Contents tab you should now see the Application called Transformation_Map, the Integration Service called TemperatureConverter and the REST API called CustomerDatabaseV1. "
                                     },
                                     {
-                                        "details": "Explore the other 4 tabs as you wish to gather information about this specific server. We will explore Policies and how to utilise both Statistics tabs in later tutorials."
+                                        "details": "Explore the other areas of the Web UI yourself.  Separate tutorials on the topic of Policies and Statistics are also provided in the Tutorials Gallery."
                         				    },
                         				    {
-                                        "details": "Next, open the <code>localhost:4414</code> tab and you should see all the servers you created under your Integration Node earlier. Enter each of them and follow the above steps to deploy SimpleBar.bar to as many as you like. Here you can manage many integration servers from one UI."
+                                        "details": "Open another tab in your web browser and connect to the URL <code>http://localhost:4414</code>. This will show you information about the Integration Node named MyNode, and its three servers MyNodeOwnedServer1, MyNodeOwnedServer2 and MyNodeOwnedServer3 which you created earlier. You should see a tile representing each server, which you can click into to display their content, which will be empty to start with until you deploy something, which you might like to try!"
                         				    },
                         				    {
-                                        "details": "Return back to the server view in your Node WebUI. On the right there should be a button labelled 'Create a Server'. Click it and name your new server something unique. Deploy the Bar file to it if you like."
+                                        "details": "In the server view of the Integration Node Web UI, on the right you will find a button labelled 'Create a Server'. You can use this option to create another integration server which is owned by the node."
                         				    },
                         				    {
-                                        "details": "Open the <code>localhost:7601</code> tab. In the top right of this web UI there should be 3 brand-new tabs and an 'Edit Connections' button.<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Server', name it 'server0' and set the address to 'http://localhost:7600'<br> - Click 'Save' in the bottom right of the window, you should now be able to access your standalone server directly from your Dashboard's WebUI."
-                          					},
-                        				    {
-                                        "details": "Repeat the above steps to connect to your Integration Node at the address 'http://localhost:4414'."
-                          					},
-                        				    {
-                                        "details": "Now you will be to manage all your Integration Servers and Nodes from one handy Web User Interface. Changing the focus to 'Integrations' in the top right will shwo all the deployed applications across all servers you own. 'Nodes' and 'Servers' display all nodes and servers respectively."
-                          					}
+                                        "details": "Open another new tab in your web browser and connect to the URL <code>https://localhost:7643</code>. Your browser will ask you if you are happy to connect based upon the information which is in the self-signed certificate which you created earlier. Once connected, in the top right corner of this web UI you should see a button which allows you to toggle your view between Integrations, Servers and Nodes. To the left of this you will see the option to Edit Connections:<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Server', use the name 'MyServer' (or any name you like to uniquely identify the standalone server), set the address to 'http://localhost:7600', the Username to 'webuser' and the Password to 'password123'<br> - Click 'Save' in the bottom right of the window and the Servers view should show your standalone integration server."
+										},
+										{
+											 "details": "Repeat the process to Edit Connections:<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Node', use the name 'MyNode' (or any name you like to uniquely identify the node which you created earlier), set the address to 'http://localhost:4414' (for this connection you don't need a Username and Password)<br> - Click 'Save' in the bottom right of the window and in the Servers view, you should now be able to see tiles representing both the standalone server, and the servers which are owned by the Integration Node all together in the same Web UI."
+										}                        				    
                                 ]
                             }
                         }
                     ]
-                },
-				"exits":
-				{
-					"title": "Run Exits",
-					"details":
-					[
-						{
-							"name": "Clean Up",
-							"description": "Clean up and remove any changes in your workspace made by the tutorial.",
-							"method": "cleanUp()"
-						}
-					]
-				}
+                }
             }
         }
     }
