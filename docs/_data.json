@@ -159,7 +159,7 @@
 								"details": "Use the mqsiwebuseradmin command to specify a web userid and password which will be used to login to the Web UI:<br><code>mqsiwebuseradmin -w C:\\MyServer -c -u webuser -a password123</code>"
 							}, 
                             {
-                                "details": "Start an integration server using the following command: <br><code>IntegrationServer --name MyServer --work-dir C:\\MyServer -admin-rest-api 7600 --http-port-number 7900 --console-log</code>"
+                                "details": "Start an integration server using the following command: <br><code>IntegrationServer --name MyServer --work-dir C:\\MyServer --admin-rest-api 7600 --http-port-number 7900 --console-log</code>"
                             }
                           ]
                         }
