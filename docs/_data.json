@@ -197,7 +197,7 @@
 								"details": "Create the directory <code>C:\\MyDashboardServerKeyStore</code> and then use keytool to create a keystore file containing your self-signed certificate:<br><code>keytool -genkey -alias ACE_alias -keystore C:\\MyDashboardServerKeyStore\\keystore.pfx -storepass change1t -storetype pkcs12 -keyalg RSA</code><br>When prompted, provide suitable values for your self-signed certificate's values. For example, CN=aceserver.hursley.ibm.com, OU=IBM ACE, O=ibm, L=Hursley, ST=Hampshire, C=GB"
 							},
 							{
-								"details": "Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><code>mqsisetdbparms -w C:\\MyDashboardServerKeyStore -n adminRestApi::sslpwd -u ignore -p change1t</code>"
+								"details": "Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><code>mqsisetdbparms -w C:\\MyDashboardServer -n adminRestApi::sslpwd -u ignore -p change1t</code>"
 							},
 							{
 								"details": "Set the environment variable <code>ACE_DASHBOARD=true</code> by typing:<br><code>set ACE_DASHBOARD=true</code>"
