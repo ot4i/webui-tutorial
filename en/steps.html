@@ -24,7 +24,7 @@
 		
 		<title>IBM Integration Bus V10 Tutorial</title>
 
-    	<link rel="stylesheet" href="https://ot4i.github.io/iib-tutorials/css/main.css" />
+    	<link rel="stylesheet" href="https//ot4i.github.io/iib-tutorials/css/main.css" />
 		<link rel="stylesheet" href="https://ot4i.github.io/iib-tutorials/css/app.css" />
     	
 		<script src="https://ot4i.github.io/iib-tutorials/js/json2.js"></script>
@@ -140,7 +140,7 @@
 										
 										</li>
 									
-										<li> Edit the <code>server.conf.yaml</code> file which the above command will have created in the directory <code>C:\MyServer</code>. To turn on Basic Authentication for users logging in to the ACE Web UI, find the line <code>&nbsp;&nbsp;#basicAuth: true</code> and uncomment the line by removing the leading # symbol
+										<li> Edit the <code>server.conf.yaml</code> file which the above command will have created in the directory <code>C:\MyServer</code>. To turn on Basic Authentication for users logging in to the ACE Web UI, find the line <code>&nbsp;&nbsp;#basicAuth: true</code> and uncomment the line by removing the leading # symbol. Remember to save the <code>server.conf.yaml</code> file.
 										
 										</li>
 									
@@ -188,7 +188,7 @@
 										
 										</li>
 									
-										<li> Edit the server.conf.yaml file which the above command will have created in the directory <code>C:\MyDashboardServer</code>, with the following details in order to secure the ACE Web UI:<br><code>RestAdminListener:<br>&nbsp;&nbsp;port: 7643<br>&nbsp;&nbsp;sslCertificate: C:\MyDashboardServerKeyStore\keystore.pfx<br>&nbsp;&nbsp;sslPassword: adminRestApi::sslpwd</code>
+										<li> Edit the server.conf.yaml file which the above command will have created in the directory <code>C:\MyDashboardServer</code>, with the following details in order to secure the ACE Web UI:<br><code>RestAdminListener:<br>&nbsp;&nbsp;port: 7643<br>&nbsp;&nbsp;sslCertificate: C:\MyDashboardServerKeyStore\keystore.pfx<br>&nbsp;&nbsp;sslPassword: adminRestApi::sslpwd</code><br>Remember to save the <code>server.conf.yaml</code> file.
 										
 										</li>
 									
@@ -196,7 +196,7 @@
 										
 										</li>
 									
-										<li> Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><code>mqsisetdbparms C:\MyDashboardServerKeyStore -n adminRestApi::sslpwd -u ignore -p change1t</code>
+										<li> Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><code>mqsisetdbparms -w C:\MyDashboardServerKeyStore -n adminRestApi::sslpwd -u ignore -p change1t</code>
 										
 										</li>
 									
