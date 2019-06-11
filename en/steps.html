@@ -129,7 +129,7 @@
 						  	<h4>Prepare an example ACE environment</h4>
 						    
 						    
-								<p> <b>Prepare an ACE Web UI for administering an Integration Server</b> </p>
+								<p> <b>Prepare a server to host the ACE Web UI for administering an Integration Server</b> </p>
 								
 								
 									
@@ -161,7 +161,7 @@
 									
 								
 							
-								<p> <b>Prepare an ACE Web UI for administering an Integration Node</b> </p>
+								<p> <b>Prepare a server to host the ACE Web UI for administering an Integration Node</b> </p>
 								
 								
 									
@@ -181,14 +181,14 @@
 									
 								
 							
-								<p> <b>Prepare an ACE Web UI for administering multiple servers and nodes</b> </p>
+								<p> <b>Prepare a server to host the ACE Dashboard for administering multiple servers and nodes</b> </p>
 								
 								
 									
 									<ol>
 									
 									
-										<li> Open a third ACE Command Console, which we will use to support another Integration Server whose only purpose is to support a variant of the ACE Web UI which allows you to administer multiple Integration Nodes and Servers in your network. This server is not intended to be used to host deployed integrations, so do not attempt to connect to it from a Toolkit (or interact with it via the standard REST administration API). This special server behavior is configured by setting an environment variable named ACE_DASHBOARD. Given that the role of the web UI which will be served by this Integration server is to provide information about multiple servers and nodes running in your network, you will most likely want to configure this form of the web UI to be served using HTTPS. In the example below, we will demonstrate using a keystore which has been populated with a self-signed certificate. For production usage, you are advised not to use self-signed certificates and instead import a personal certificate from a certificate authority.
+										<li> Open a third ACE Command Console, which we will use to start another Integration Server whose only purpose is to host a variant of the ACE Web UI referred to as the ACE Dashboard which allows you to administer multiple Integration Nodes and Servers in your network. This server is not intended to be used to host deployed integrations, so do not attempt to connect to it from a Toolkit (or interact with it via the standard REST administration API). This special server behavior is configured by setting an environment variable named ACE_DASHBOARD. Given that the role of the web UI which will be served by this Integration server is to provide information about multiple servers and nodes running in your network, you will most likely want to configure this form of the web UI to be served using HTTPS. In the example below, we will demonstrate using a keystore which has been populated with a self-signed certificate. For production usage, you are advised not to use self-signed certificates and instead import a personal certificate from a certificate authority.
 										
 										</li>
 									
@@ -245,7 +245,7 @@
 									<ol>
 									
 									
-										<li> Open a tab in a web browser and connect to the URL <code>http://localhost:7600</code>. This will present the WebUI for your standalone integration server, which we configured to use Basic Authentication.  When challenged type the username <code>webuser</code> and password <code>password123</code>.  Log-in should succeed and you should see 5 tabs along the top of the page, a Deploy button on the right and an empty body of Contents.
+										<li> Open a tab in a web browser and connect to the URL <code>http://localhost:7600</code>. This will present the WebUI for your standalone integration server, which we configured to use Basic Authentication.  When challenged type the username <code>webuser</code> and password <code>password123</code>.  Log-in should succeed and you should see several tabs along the top of the page (eg Contents), and a Deploy button on the right.
 										
 										</li>
 									
