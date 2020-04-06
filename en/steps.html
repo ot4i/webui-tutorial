@@ -15,14 +15,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<meta name="copyright" content="Copyright IBM Corporation 2014" />
-		<meta name="abstract" content="IBM Integration Bus V10 Tutorial">
+		<meta name="abstract" content="IBM App Connect Enterprise V11 Tutorial">
 		<meta name="author" content="IBM">
-		<meta name="description" content="IBM Integration Bus V10 Tutorial">
+		<meta name="description" content="IBM App Connect Enterprise V11 Tutorial">
 		<meta name="keywords" content="keywords" > 
 		<meta name="robots" content="index,follow">
-		<meta name="source" content="IBM Integration Bus V10 Tutorial" /> 
+		<meta name="source" content="IBM App Connect Enterprise V11 Tutorial" /> 
 		
-		<title>IBM Integration Bus V10 Tutorial</title>
+		<title>IBM App Connect Enterprise V11 Tutorial</title>
 
     	<link rel="stylesheet" href="https://ot4i.github.io/iib-tutorials/css/main.css" />
 		<link rel="stylesheet" href="https://ot4i.github.io/iib-tutorials/css/app.css" />
@@ -136,19 +136,19 @@
 									<ol>
 									
 									
-										<li> Assuming you are using a Windows platform, open an App Connect Enterprise Command Console and create a working directory by running the mqsicreateworkdir command:<br><code>mqsicreateworkdir C:\MyServer</code>
+										<li> Open an App Connect Enterprise Command Console and create a working directory by running the mqsicreateworkdir command:<br><ul><li>If you are using a Windows platform: <code>mqsicreateworkdir C:\MyServer</code></li><li>If you are using a UNIX platform: <code>mqsicreateworkdir /home/exampleuser/MyServer</code></li></ul>
 										
 										</li>
 									
-										<li> Edit the <code>server.conf.yaml</code> file which the above command will have created in the directory <code>C:\MyServer</code>. To turn on Basic Authentication for users logging in to the ACE Web UI, find the line <code>&nbsp;&nbsp;#basicAuth: true</code> and uncomment the line by removing the leading # symbol. Remember to save the <code>server.conf.yaml</code> file.
+										<li> Edit the <code>server.conf.yaml</code> file which the above command will have created in the directory <code>C:\MyServer</code> on Windows, or <code>/home/exampleuser/MyServer</code> on UNIX. To turn on Basic Authentication for users logging in to the ACE Web UI, find the line <code>&nbsp;&nbsp;#basicAuth: true</code> and uncomment the line by removing the leading # symbol. Remember to save the <code>server.conf.yaml</code> file.
 										
 										</li>
 									
-										<li> Use the mqsiwebuseradmin command to specify a web userid and password which will be used to login to the Web UI:<br><code>mqsiwebuseradmin -w C:\MyServer -c -u webuser -a password123</code>
+										<li> Use the mqsiwebuseradmin command to specify a web userid and password which will be used to login to the Web UI:<br><ul><li>If you are using a Windows platform: <code>mqsiwebuseradmin -w C:\MyServer -c -u webuser -a password123</code></li><li>If you are using a UNIX platform: <code>mqsiwebuseradmin -w /home/exampleuser/MyServer -c -u webuser -a password123</code></li></ul>
 										
 										</li>
 									
-										<li> Start an integration server using the following command: <br><code>IntegrationServer --name MyServer --work-dir C:\MyServer --admin-rest-api 7600 --http-port-number 7900 --console-log</code>
+										<li> Start an integration server using the following command: <br><ul><li>If you are using a Windows platform: <code>IntegrationServer --name MyServer --work-dir C:\MyServer --admin-rest-api 7600 --http-port-number 7900 --console-log</code></li><li>If you are using a UNIX platform: <code>IntegrationServer --name MyServer --work-dir /home/exampleuser/MyServer --admin-rest-api 7600 --http-port-number 7900 --console-log</code></li></ul>
 										
 										</li>
 									
@@ -192,19 +192,19 @@
 										
 										</li>
 									
-										<li> In Command Console, create a working directory by running the mqsicreateworkdir command:<br><code>mqsicreateworkdir C:\MyDashboardServer</code>
+										<li> In Command Console, create a working directory by running the mqsicreateworkdir command:<br><ul><li>If you are using a Windows platform: <code>mqsicreateworkdir C:\MyDashboardServer</code></li><li>If you are using a UNIX platform: <code>mqsicreateworkdir /home/exampleuser/MyDashboardServer</code></li></ul>
 										
 										</li>
 									
-										<li> Edit the server.conf.yaml file which the above command will have created in the directory <code>C:\MyDashboardServer</code>, with the following details in order to secure the ACE Web UI:<br><code>RestAdminListener:<br>&nbsp;&nbsp;port: 7643<br>&nbsp;&nbsp;sslCertificate: C:\MyDashboardServerKeyStore\keystore.pfx<br>&nbsp;&nbsp;sslPassword: adminRestApi::sslpwd</code><br>Remember to save the <code>server.conf.yaml</code> file.
+										<li> Edit the server.conf.yaml file which the above command will have created in the directory <code>C:\MyDashboardServer</code> on Windows, or <code>/home/exampleuser/MyDashboardServer</code> on UNIX, with the following details in order to secure the ACE Web UI. For the sslCertificate property, use a file path which is relevant for your operating system, for example on Windows <code>C:\MyDashboardServerKeyStore\keystore.pfx</code> but on UNIX <code>/home/exampleuser/MyDashboardServerKeyStore/keystore.pfx</code>:<br><code>RestAdminListener:<br>&nbsp;&nbsp;port: 7643<br>&nbsp;&nbsp;sslCertificate: C:\MyDashboardServerKeyStore\keystore.pfx<br>&nbsp;&nbsp;sslPassword: adminRestApi::sslpwd</code><br>Remember to save the <code>server.conf.yaml</code> file.
 										
 										</li>
 									
-										<li> Create the directory <code>C:\MyDashboardServerKeyStore</code> and then use keytool to create a keystore file containing your self-signed certificate:<br><code>keytool -genkey -alias ACE_alias -keystore C:\MyDashboardServerKeyStore\keystore.pfx -storepass change1t -storetype pkcs12 -keyalg RSA</code><br>When prompted, provide suitable values for your self-signed certificate's values. For example, CN=aceserver.hursley.ibm.com, OU=IBM ACE, O=ibm, L=Hursley, ST=Hampshire, C=GB
+										<li> Create the directory <code>C:\MyDashboardServerKeyStore</code> on Windows or <code>/home/exampleuser/MyDashboardServerKeyStore</code> on UNIX, and then use keytool to create a keystore file containing your self-signed certificate:<br><ul><li>If you are using a Windows platform: <code>keytool -genkey -alias ACE_alias -keystore C:\MyDashboardServerKeyStore\keystore.pfx -storepass change1t -storetype pkcs12 -keyalg RSA</code></li><li>If you are using a UNIX platform: <code>keytool -genkey -alias ACE_alias -keystore /home/exampleuser/MyDashboardServerKeyStore/keystore.pfx -storepass change1t -storetype pkcs12 -keyalg RSA</code></li></ul><br>When prompted, provide suitable values for your self-signed certificate's values. For example, CN=aceserver.hursley.ibm.com, OU=IBM ACE, O=ibm, L=Hursley, ST=Hampshire, C=GB
 										
 										</li>
 									
-										<li> Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><code>mqsisetdbparms -w C:\MyDashboardServer -n adminRestApi::sslpwd -u ignore -p change1t</code>
+										<li> Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><ul><li>If you are using a Windows platform: <code>mqsisetdbparms -w C:\MyDashboardServer -n adminRestApi::sslpwd -u ignore -p change1t</code></li><li>If you are using a UNIX platform: <code>mqsisetdbparms -w /home/exampleuser/MyDashboardServer -n adminRestApi::sslpwd -u ignore -p change1t</code></li></ul>
 										
 										</li>
 									
@@ -212,7 +212,7 @@
 										
 										</li>
 									
-										<li> Finally, start a new integration server by typing the command:<br><code>IntegrationServer --name MyDashboardServer --work-dir C:\MyDashboardServer --console-log</code>
+										<li> Finally, start a new integration server by typing the command:<br><ul><li>If you are using a Windows platform: <code>IntegrationServer --name MyDashboardServer --work-dir C:\MyDashboardServer --console-log</code></li><li>If you are using a UNIX platform: <code>IntegrationServer --name MyDashboardServer --work-dir /home/exampleuser/MyDashboardServer --console-log</code></li></ul>
 										
 										</li>
 									
