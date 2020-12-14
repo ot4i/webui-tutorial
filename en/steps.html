@@ -181,50 +181,6 @@
 									
 								
 							
-								<p> <b>Prepare a server to host the ACE Dashboard for administering multiple servers and nodes</b> </p>
-								
-								
-									
-									<ol>
-									
-									
-										<li> Open a third ACE Command Console, which we will use to start another Integration Server whose only purpose is to host a variant of the ACE Web UI referred to as the ACE Dashboard which allows you to administer multiple Integration Nodes and Servers in your network. This server is not intended to be used to host deployed integrations, so do not attempt to connect to it from a Toolkit (or interact with it via the standard REST administration API). This special server behavior is configured by setting an environment variable named ACE_DASHBOARD. Given that the role of the web UI which will be served by this Integration server is to provide information about multiple servers and nodes running in your network, you will most likely want to configure this form of the web UI to be served using HTTPS. In the example below, we will demonstrate using a keystore which has been populated with a self-signed certificate. For production usage, you are advised not to use self-signed certificates and instead import a personal certificate from a certificate authority.
-										
-										</li>
-									
-										<li> In Command Console, create a working directory by running the mqsicreateworkdir command:<br><ul><li>If you are using a Windows platform: <code>mqsicreateworkdir C:\MyDashboardServer</code></li><li>If you are using a UNIX platform: <code>mqsicreateworkdir /home/exampleuser/MyDashboardServer</code></li></ul>
-										
-										</li>
-									
-										<li> Edit the server.conf.yaml file which the above command will have created in the directory <code>C:\MyDashboardServer</code> on Windows, or <code>/home/exampleuser/MyDashboardServer</code> on UNIX, with the following details in order to secure the ACE Web UI. For the sslCertificate property, use a file path which is relevant for your operating system, for example on Windows <code>C:\MyDashboardServerKeyStore\keystore.pfx</code> but on UNIX <code>/home/exampleuser/MyDashboardServerKeyStore/keystore.pfx</code>:<br><code>RestAdminListener:<br>&nbsp;&nbsp;port: 7643<br>&nbsp;&nbsp;sslCertificate: C:\MyDashboardServerKeyStore\keystore.pfx<br>&nbsp;&nbsp;sslPassword: adminRestApi::sslpwd</code><br>Remember to save the <code>server.conf.yaml</code> file.
-										
-										</li>
-									
-										<li> Create the directory <code>C:\MyDashboardServerKeyStore</code> on Windows or <code>/home/exampleuser/MyDashboardServerKeyStore</code> on UNIX, and then use keytool to create a keystore file containing your self-signed certificate:<br><ul><li>If you are using a Windows platform: <code>keytool -genkey -alias ACE_alias -keystore C:\MyDashboardServerKeyStore\keystore.pfx -storepass change1t -storetype pkcs12 -keyalg RSA</code></li><li>If you are using a UNIX platform: <code>keytool -genkey -alias ACE_alias -keystore /home/exampleuser/MyDashboardServerKeyStore/keystore.pfx -storepass change1t -storetype pkcs12 -keyalg RSA</code></li></ul><br>When prompted, provide suitable values for your self-signed certificate's values. For example, CN=aceserver.hursley.ibm.com, OU=IBM ACE, O=ibm, L=Hursley, ST=Hampshire, C=GB
-										
-										</li>
-									
-										<li> Use the mqsisetdbparms command to specify the password for the keystore to the Integration Server:<br><ul><li>If you are using a Windows platform: <code>mqsisetdbparms -w C:\MyDashboardServer -n adminRestApi::sslpwd -u ignore -p change1t</code></li><li>If you are using a UNIX platform: <code>mqsisetdbparms -w /home/exampleuser/MyDashboardServer -n adminRestApi::sslpwd -u ignore -p change1t</code></li></ul>
-										
-										</li>
-									
-										<li> Set the environment variable <code>ACE_DASHBOARD=true</code> by typing:<br><code>set ACE_DASHBOARD=true</code>
-										
-										</li>
-									
-										<li> Finally, start a new integration server by typing the command:<br><ul><li>If you are using a Windows platform: <code>IntegrationServer --name MyDashboardServer --work-dir C:\MyDashboardServer --console-log</code></li><li>If you are using a UNIX platform: <code>IntegrationServer --name MyDashboardServer --work-dir /home/exampleuser/MyDashboardServer --console-log</code></li></ul>
-										
-										</li>
-									
-										<li> We will use a web browser to explore the Web UI in the Run section of this tutorial.
-										
-										</li>
-									
-									
-									</ol>
-									
-								
-							
 						</div>
 							
 					</div>
@@ -266,14 +222,6 @@
 										</li>
 									
 										<li> In the server view of the Integration Node Web UI, on the right you will find a button labelled 'Create a Server'. You can use this option to create another integration server which is owned by the node.
-										
-										</li>
-									
-										<li> Open another new tab in your web browser and connect to the URL <code>https://localhost:7643</code>. Your browser will ask you if you are happy to connect based upon the information which is in the self-signed certificate which you created earlier. Once connected, in the top right corner of this web UI you should see a button which allows you to toggle your view between Integrations, Servers and Nodes. To the left of this you will see the option to Edit Connections:<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Server', use the name 'MyServer' (or any name you like to uniquely identify the standalone server), set the address to 'http://localhost:7600', the Username to 'webuser' and the Password to 'password123'<br> - Click 'Save' in the bottom right of the window and the Servers view should show your standalone integration server.
-										
-										</li>
-									
-										<li> Repeat the process to Edit Connections:<br> - Click on 'Edit Connections'<br> - Under the Connections tab, click 'Add'<br> - Select 'Integration Node', use the name 'MyNode' (or any name you like to uniquely identify the node which you created earlier), set the address to 'http://localhost:4414' (for this connection you don't need a Username and Password)<br> - Click 'Save' in the bottom right of the window and in the Servers view, you should now be able to see tiles representing both the standalone server, and the servers which are owned by the Integration Node all together in the same Web UI.
 										
 										</li>
 									
