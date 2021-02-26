@@ -32,7 +32,7 @@
   	{
         "_common":
     		{
-            "name": "Getting started with ACEv11 - Exploring the Web UI",
+            "name": "Getting started with ACEv12 - Exploring the Web UI",
             "shortDescription": "Learn some basics about administering ACE using a Web UI",
             "durationText": "This tutorial takes approximately",
             "durationTime": "15 minutes",
@@ -72,7 +72,7 @@
                 "sections":
         				[
                     {
-                        "section": "This tutorial helps you explore the App Connect Enterprise Web UI which is used for administering installations of the software product. If you are not already familiar with the concept of an Integration Node and an Integration Server, you should start by looking through another tutorial named Getting Started with ACEv11 - Creating an Integration Server, which will help explain these concepts."
+                        "section": "This tutorial helps you explore the App Connect Enterprise Web UI which is used for administering installations of the software product. If you are not already familiar with the concept of an Integration Node and an Integration Server, you should start by looking through another tutorial named Getting Started with ACEv12 - Creating an Integration Server, which will help explain these concepts."
 					},
 					{
 						"section":"The App Connect Enterprise Web UI contains slightly different options depending on whether you connect to an Integration Node, or an Integration Server (which is defined independently from an Integration Node). This example uses a few simple flows to populate the WebUI enough to demonstrate the basics of it."
