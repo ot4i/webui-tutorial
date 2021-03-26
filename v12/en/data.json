@@ -32,8 +32,8 @@
   	{
         "_common":
     		{
-            "name": "Getting started with ACEv12 - Exploring the Web UI",
-            "shortDescription": "Learn some basics about administering ACE using a Web UI",
+            "name": "Getting started - Exploring the Web UI",
+            "shortDescription": "Learn some basics about administration using the Web UI",
             "durationText": "This tutorial takes approximately",
             "durationTime": "15 minutes",
             "_resourceToOpenComment": "The ID of the first resource to open when the user imports the tutorial. Resource IDs are defined in the repo_metadata.json Tutorials listing on ot4i.",
