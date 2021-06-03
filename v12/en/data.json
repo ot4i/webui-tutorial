@@ -147,7 +147,7 @@
                           [
 							  
 							  {
-								"details": "Open an App Connect Enterprise Command Console and create a working directory by running the mqsicreateworkdir command:<br><ul><li>If you are using a Windows platform: <code>mqsicreateworkdir C:\\MyServer</code></li><li>If you are using a UNIX platform: <code>mqsicreateworkdir /home/exampleuser/MyServer</li></ul>"
+								"details": "Open an App Connect Enterprise Command Console and create a working directory by running the mqsicreateworkdir command:<br><ul><li>If you are using a Windows platform: <code>mqsicreateworkdir C:\\MyServer</code></li><li>If you are using a UNIX platform: <code>mqsicreateworkdir /home/exampleuser/MyServer</code></li></ul>"
 							},
 							  	{
 								"details": "Edit the <code>server.conf.yaml</code> file which the above command will have created in the directory <code>C:\\MyServer</code> on Windows, or <code>/home/exampleuser/MyServer</code> on UNIX. To turn on Basic Authentication for users logging in to the Web UI, find the line <code>&nbsp;&nbsp;#basicAuth: true</code> and uncomment the line by removing the leading # symbol. Remember to save the <code>server.conf.yaml</code> file."
